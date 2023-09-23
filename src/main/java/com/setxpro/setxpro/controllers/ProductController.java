@@ -30,20 +30,20 @@ public class ProductController {
 
     // ResponseEntity -> res. como no nodejs
     @GetMapping
-    public ResponseEntity getAllProducts() {
+    public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = this.productService.findAllProducts();
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getOneProduct(@PathVariable String id) {
+    public ResponseEntity<Optional<Product>> getOneProduct(@PathVariable String id) {
         var oneProduct = productService.findOneProduct(id);
         return ResponseEntity.ok(oneProduct);
     }
 
     // @Valid vai fazer a validação do bory atraves dp RequestProduct
     @PostMapping
-    public ResponseEntity registerProduct(@RequestBody @Valid RequestProduct data) {
+    public ResponseEntity<Product> registerProduct(@RequestBody @Valid RequestProduct data) {
         Product newProduct = new Product(data);
         productService.createProduct(newProduct);
         return ResponseEntity.ok(newProduct);
@@ -51,7 +51,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @Transactional
-    public ResponseEntity updateProduct(@PathVariable String id, @RequestBody Product newProduct) {
+    public ResponseEntity<Optional<Product>> updateProduct(@PathVariable String id, @RequestBody Product newProduct) {
         Optional<Product> productUpdated = productService.updateProduct(id, newProduct);
         return ResponseEntity.ok(productUpdated);
     }
