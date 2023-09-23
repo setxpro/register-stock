@@ -33,7 +33,7 @@ public class ProductController {
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Product>> getOneProduct(@PathVariable String id) {
         var oneProduct = productService.findOneProduct(id);
-        return ResponseEntity.ok(oneProduct);
+        return new ResponseEntity<>(oneProduct, HttpStatus.OK);
     }
 
     // @Valid vai fazer a validação do bory atraves dp RequestProduct
@@ -41,11 +41,10 @@ public class ProductController {
     public ResponseEntity<Product> registerProduct(@RequestBody @Valid RequestProduct data) {
         Product newProduct = new Product(data);
         productService.createProduct(newProduct);
-        return ResponseEntity.ok(newProduct);
+        return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    @Transactional
     public ResponseEntity<Optional<Product>> updateProduct(@PathVariable String id, @RequestBody Product newProduct) {
         Optional<Product> productUpdated = productService.updateProduct(id, newProduct);
         return ResponseEntity.ok(productUpdated);
