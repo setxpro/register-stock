@@ -3,7 +3,6 @@ package com.setxpro.setxpro.controllers;
 import com.setxpro.setxpro.domain.product.Product;
 import com.setxpro.setxpro.domain.product.RequestProduct;
 import com.setxpro.setxpro.services.ProductService;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
