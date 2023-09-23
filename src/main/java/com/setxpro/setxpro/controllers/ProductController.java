@@ -1,12 +1,10 @@
 package com.setxpro.setxpro.controllers;
 
 import com.setxpro.setxpro.domain.product.Product;
-import com.setxpro.setxpro.domain.product.ProductRepository;
 import com.setxpro.setxpro.domain.product.RequestProduct;
 import com.setxpro.setxpro.services.ProductService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +19,6 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @Autowired
-    private ProductRepository productRepository;
-
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
@@ -32,7 +27,7 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = this.productService.findAllProducts();
-        return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
